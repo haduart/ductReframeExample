@@ -3,6 +3,25 @@
     [goog.events.KeyCodes :as KeyCodes]
     [re-frame.core :as re-frame]))
 
+(defn- input-box [placeholder dispatch-event value]
+  [:input {:placeholder placeholder
+           :type        "text"
+           :auto-focus  true
+           :value       value
+           :on-change   #(re-frame/dispatch [dispatch-event (-> % .-target .-value)])}])
+
+(defn- button []
+  [:button {:type     "submit"
+            :disabled false
+            :on-click #(re-frame/dispatch [:scrambles/check-scramble])}
+   "Check Scramble"])
+
+(defn- display-message [response]
+  (when (not (nil? response))
+    (if response
+      [:h2.success "True!"]
+      [:h2 "False..."])))
+
 (defn body [db]
   (let [new-first-word (-> db :scrambles :new-first-word)
         new-second-word (-> db :scrambles :new-second-word)
@@ -13,25 +32,9 @@
       [:header.header
        [:h1 "Scramble?"]
 
-       [:input {:placeholder "Enter first word"
-                :type        "text"
-                :auto-focus  true
-                :value       new-first-word
-                :on-change   #(re-frame/dispatch [:scrambles/update-first-word (-> % .-target .-value)])}]
+       (input-box "Enter first word" :scrambles/update-first-word new-first-word)
+       (input-box "Enter second word" :scrambles/update-second-word new-second-word)
 
-       [:input {:placeholder "Enter second word"
-                :type        "text"
-                :auto-focus  true
-                :value       new-second-word
-                :on-change   #(re-frame/dispatch [:scrambles/update-second-word (-> % .-target .-value)])}]
+       (button)
 
-       [:button {:type     "submit"
-                 :disabled false
-                 :on-click #(re-frame/dispatch [:scrambles/check-scramble])}
-        "Check Scramble"]
-
-       (when (not (nil? response))
-         (if response
-           [:h2.success "True!"]
-           [:h2 "False..."]))
-       ]]]))
+       (display-message response)]]]))
