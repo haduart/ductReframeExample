@@ -2,6 +2,7 @@
   (:use midje.sweet
         clojure.test)
   (:require [flexiana-scramble.handler.service :as service]
+            [flexiana-scramble.handler.api]
             [integrant.core :as ig]
             [ring.mock.request :as mock]
             [clojure.data.json :as json]))
