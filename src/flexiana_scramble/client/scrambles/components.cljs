@@ -22,6 +22,10 @@
       [:h2.success "True!"]
       [:h2 "False..."])))
 
+(defn display-error [error]
+  (when (not (nil? error))
+      [:h2 "Words should contain only alphanumeric characters, without numbers or symbols"]))
+
 (defn body [db]
   (let [new-first-word (-> db :scrambles :new-first-word)
         new-second-word (-> db :scrambles :new-second-word)
@@ -37,4 +41,6 @@
 
        (button)
 
-       (display-message response)]]]))
+       (display-message response)
+
+       (display-error error)]]]))
