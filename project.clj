@@ -16,7 +16,8 @@
   :plugins [[duct/lein-duct "0.10.6"]
             [lein-midje "3.1.3"]
             [lein-cljsbuild "1.1.7"]
-            [lein-kibit "0.1.6"]]
+            [lein-kibit "0.1.6"]
+            [lein-figwheel "0.5.16"]]
 
   :main ^:skip-aot flexiana-scramble.main
   :resource-paths ["resources" "target/resources"]
@@ -42,11 +43,13 @@
 
   :cljsbuild {
               :builds [{:id           "dev"
+                        :figwheel     true
                         :source-paths ["src" "dev/src"]
                         :compiler     {:main                 dev.client
                                        :output-to            "resources/flexiana_scramble/public/js/main.js"
                                        :output-dir           "resources/flexiana_scramble/public/js/out"
                                        :asset-path           "js/out"
+                                       :optimizations        :none
                                        :source-map-timestamp true
                                        :preloads             [devtools.preload]
                                        :external-config      {:devtools/config {:features-to-install :all}}}}
