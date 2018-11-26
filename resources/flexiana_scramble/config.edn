@@ -1,12 +1,14 @@
 {:duct.core/project-ns  flexiana-scramble
  :duct.core/environment :production
 
- :duct.module/logging {}
- :duct.module.web/api {}
- :duct.module/cljs {:main flexiana-scramble.client}
- 
- :duct.router/cascading
- [#ig/ref :flexiana-scramble.handler/api]
+ :duct.module/logging   {}
+ :duct.module.web/api   {}
 
- :flexiana-scramble.handler/api
- {}}
+ :duct.middleware.web/defaults {:static {:resources "flexiana_scramble/public"}}
+
+ :duct.router/cascading [#ig/ref :flexiana-scramble.handler/api
+                         #ig/ref :flexiana-scramble.handler/site]
+
+ :flexiana-scramble.handler/api {}
+ :flexiana-scramble.handler/site {}
+ }

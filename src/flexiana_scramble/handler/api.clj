@@ -32,8 +32,3 @@
           scramble
           wrap-scramble-response
           json-response)))))
-
-(comment
-  (GET "/" []
-    {:body {:example "data"}} (io/resource "flexiana_scramble/handler/example/example.html"))
-  )
