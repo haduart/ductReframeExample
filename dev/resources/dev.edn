@@ -1,0 +1,2 @@
+{:duct.core/environment :development
+ :duct.core/include ["flexiana_scramble/config"]}
