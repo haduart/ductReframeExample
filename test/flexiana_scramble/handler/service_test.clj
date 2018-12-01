@@ -14,6 +14,9 @@
             (service/scramble? "hola" "aloah5") => (throws AssertionError))
       (fact "Prevent capital letters to get through"
             (service/scramble? "Hola" "aloah") => (throws AssertionError)
-            (service/scramble? "hola" "aloaH") => (throws AssertionError)))
+            (service/scramble? "hola" "aloaH") => (throws AssertionError))
+      (fact "fixing bug"
+            (service/scramble? "foo" "fo") => true
+            (service/scramble? "fo" "foo") => false))
 
 
